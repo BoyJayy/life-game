@@ -37,7 +37,6 @@ namespace game
                 }
             }
         }
-
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             for (int i = 0; i < n; i++)
