@@ -19,9 +19,10 @@ namespace game
         }
 
         Graphics g;
-        const int n = 1000, m = 1000; const int size = 30;
+        const int n = 100, m = 100; const int size = 30;
         public Rectangle[,] rectangle = new Rectangle[n, m];
-        Pen blackPen = new Pen(Color.Black, 1);
+        SolidBrush blackBrush = new SolidBrush(Color.Black);
+        Pen blackPen = new Pen(Color.Black,1);
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -37,9 +38,21 @@ namespace game
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if ((e.Y >= rectangle[i, j].Location.Y) &&
+                    (e.Y <= (rectangle[i, j].Location.Y + size)) &&
+                    (e.X >= rectangle[i, j].Location.X) &&
+                    (e.X <= (rectangle[i, j].Location.X + size)))
+                    {
+                        g.FillRectangle(blackBrush, rectangle[i, j]);
+                    }
+                }
+            }
         }
     }
 }
