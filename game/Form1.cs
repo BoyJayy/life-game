@@ -19,14 +19,13 @@ namespace game
         }
 
         Graphics g;
-        const int n = 10, m = 10; const int size = 10;
+        const int n = 1000, m = 1000; const int size = 30;
         public Rectangle[,] rectangle = new Rectangle[n, m];
-        Pen blackPen = new Pen(Color.Black, 10);
+        Pen blackPen = new Pen(Color.Black, 1);
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
-            g = pictureBox1.CreateGraphics();
+            g = ActiveForm.CreateGraphics();
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
