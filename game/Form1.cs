@@ -17,7 +17,6 @@ namespace game
         {
             InitializeComponent();
         }
-        
         Graphics g;
         const int n = 100, m = 100; const int size = 30;
         public Rectangle[,] rectangle = new Rectangle[n, m];
@@ -34,6 +33,7 @@ namespace game
                 {
                     rectangle[i, j] = new Rectangle(i * size, j * size, size, size);
                     g.DrawRectangle(blackPen, rectangle[i, j]);
+
                 }
             }
         }
