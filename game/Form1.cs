@@ -19,37 +19,109 @@ namespace game
         }
         Graphics g;
         const int n = 100, m = 100; const int size = 30;
-        public Rectangle[,] rectangle = new Rectangle[n, m];
+        //public Rectangle[,] rectangle = new Rectangle[n, m];
+        public Rect[,] rectangle = new Rect[n, m];
         SolidBrush blackBrush = new SolidBrush(Color.Black);
         Pen blackPen = new Pen(Color.Black,1);
+        bool mouse = false;
+
+        public struct Rect
+        {
+            public Rectangle rect;
+            public Color color;
+        }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            g = ActiveForm.CreateGraphics();
+            g = Application.OpenForms[0].CreateGraphics();
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
-
                 {
-                    rectangle[i, j] = new Rectangle(i * size, j * size, size, size);
-                    g.DrawRectangle(blackPen, rectangle[i, j]);
-
+                    rectangle[i, j].rect = new Rectangle(i * size, j * size + 30, size, size);
+                    g.DrawRectangle(blackPen, rectangle[i, j].rect);
                 }
             }
         }
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouse = false;
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            if (mouse)
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        if ((e.Y >= rectangle[i, j].rect.Location.Y + 1) &&
+                        (e.Y <= (rectangle[i, j].rect.Location.Y + size)) &&
+                        (e.X >= rectangle[i, j].rect.Location.X + 1) &&
+                        (e.X <= (rectangle[i, j].rect.Location.X + size)))
+                        {
+                            g.FillRectangle(blackBrush, rectangle[i, j].rect);
+                            rectangle[i, j].color = Color.Black;
+                        }
+
+                    }
+                }
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    if ((e.Y >= rectangle[i, j].Location.Y) &&
-                    (e.Y <= (rectangle[i, j].Location.Y + size)) &&
-                    (e.X >= rectangle[i, j].Location.X) &&
-                    (e.X <= (rectangle[i, j].Location.X + size)))
+                    if (rectangle[i, j].color == Color.Black)
+                        MessageBox.Show(i + " " + j);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (button1.Text == "Start")
+            {
+                button1.Text = "Stop";
+                timer1.Enabled = true;
+            }
+            else
+            {
+                button1.Text = "Start";
+                timer1.Enabled = false;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            mouse = true;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    if ((e.Y >= rectangle[i, j].rect.Location.Y + 1) &&
+                    (e.Y <= (rectangle[i, j].rect.Location.Y + size)) &&
+                    (e.X >= rectangle[i, j].rect.Location.X + 1) &&
+                    (e.X <= (rectangle[i, j].rect.Location.X + size)))
                     {
-                        g.FillRectangle(blackBrush, rectangle[i, j]);
+                        g.FillRectangle(blackBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.Black;
                     }
+
                 }
             }
         }
