@@ -25,6 +25,9 @@ namespace game
         Pen blackPen = new Pen(Color.Black,1);
         bool mouse = false;
 
+        /// <summary>
+        /// структура поля
+        /// </summary>
         public struct Rect
         {
             public Rectangle rect;
