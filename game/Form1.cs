@@ -29,6 +29,7 @@ namespace game
         {
             public Rectangle rect;
             public Color color;
+            public int counter;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -39,6 +40,7 @@ namespace game
                 for (int j = 0; j < m; j++)
                 {
                     rectangle[i, j].rect = new Rectangle(i * size, j * size + 30, size, size);
+                    rectangle[i, j].counter = 0;
                     g.DrawRectangle(blackPen, rectangle[i, j].rect);
                 }
             }
@@ -71,7 +73,7 @@ namespace game
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //
         }
 
         private void Form1_Click(object sender, EventArgs e)
@@ -81,11 +83,27 @@ namespace game
                 for (int j = 0; j < m; j++)
                 {
                     if (rectangle[i, j].color == Color.Black)
-                        MessageBox.Show(i + " " + j);
+                    {
+                        //MessageBox.Show(i + " " + j);
+                        rectangle[i - 1, j - 1].counter++;
+                        rectangle[i - 1, j].counter++;
+                        rectangle[i - 1, j + 1].counter++;
+                        rectangle[i, j - 1].counter++;
+                        rectangle[i, j].counter++;
+                        rectangle[i, j + 1].counter++;
+                        rectangle[i + 1, j - 1].counter++;
+                        rectangle[i + 1, j].counter++;
+                        rectangle[i + 1, j + 1].counter++;
+                    }
                 }
             }
         }
 
+        /// <summary>
+        ///  кнопка старт/стоп
+        /// </summary>
+        /// <param name="sender">сендер</param>
+        /// <param name="e">эвент мыши(обращение к ней)</param>
         private void button1_Click(object sender, EventArgs e)
         {
             if (button1.Text == "Start")
@@ -100,11 +118,27 @@ namespace game
             }
         }
 
+        /// <summary>
+        /// timer по клику кнопки старт/стоп
+        /// </summary>
+        /// <param name="sender">сендер</param>
+        /// <param name="e">эвент мыши(обращение к ней)</param>
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    //здесь сам агоритм появления и изменения
+                }
+            }
         }
 
+        /// <summary>
+        /// отжатие мыши
+        /// </summary>
+        /// <param name="sender">сендер</param>
+        /// <param name="e">эвент мыши(обращение к ней)</param>
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
 
