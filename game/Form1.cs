@@ -23,6 +23,7 @@ namespace game
         public Rect[,] rectangle = new Rect[n, m];
         SolidBrush blackBrush = new SolidBrush(Color.Black);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
+        SolidBrush redBrush = new SolidBrush(Color.Red);
         Pen blackPen = new Pen(Color.Black,1);
         bool mouse = false;
 
@@ -34,7 +35,7 @@ namespace game
             public Rectangle rect;
             public Color color;
             public int counter;
-            public static Rect operator ++(Rect r1) // ЗОМБИ КОД ПОКА ЧТО 
+            public static Rect operator ++(Rect r1) // ЗОМБИ КОД ПОКА ЧТО
             {
                 r1.counter++;
                 return r1;
@@ -65,7 +66,6 @@ namespace game
 
             if (mouse)
                 for (int i = 0; i < n; i++)
-                {
                     for (int j = 0; j < m; j++)
                     {
                         if ((e.Y >= rectangle[i, j].rect.Location.Y + 1) &&
@@ -76,9 +76,7 @@ namespace game
                             g.FillRectangle(blackBrush, rectangle[i, j].rect);
                             rectangle[i, j].color = Color.Black;
                         }
-
                     }
-                }
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -105,32 +103,46 @@ namespace game
                 button1.Text = "Start";
                 timer1.Enabled = false;
             }
-            int count;
+            //for (int i = 0; i < n; i++)
+            //    for (int j = 0; j < m; j++)
+            //    {
+            //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
+            //        if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j]++; //i - 1 j
+            //        if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j]++; //i - 1 j + 1
+            //        if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; //j - 1
+            //        if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; // j + 1
+            //        if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j]++; //i + 1 j - 1
+            //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
+            //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
+            //    }
+            //for (int i = 0; i < n; i++)
+            //    for (int j = 0; j < m; j++)
+            //    {
+            //        if (rectangle[i, j].counter == 3)
+            //        {
+            //            g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i,j].rect.X + 10, rectangle[i, j].rect.Y + 10);
+            //            rectangle[i, j].counter = 0;
+            //        }
+            //        if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3)
+            //        {
+            //            g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
+            //            rectangle[i, j].counter = 0;
+            //        }
+            //    }
             for (int i = 0; i < n; i++)
-            {
                 for (int j = 0; j < m; j++)
                 {
-                    count = 0;
-                    if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j].counter++; //i - 1 j - 1
-                    if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j].counter++; //i - 1 j
-                    if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j].counter++; //i - 1 j + 1
-                    if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j].counter++; //j - 1
-                    if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j].counter++; // j + 1
-                    if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j].counter++; //i + 1 j - 1
-                    if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j].counter++; //i + 1 j
-                    if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j].counter++; //i + 1 j + 1
-                    if (count == 3)
+                    if (rectangle[i, j].color == Color.Black && i - 1 >= 0 && j - 1 >= 0)
                     {
-                        g.FillRectangle(blackBrush, rectangle[i, j].rect);
-                        rectangle[i, j].color = Color.Black;
+                        g.FillRectangle(redBrush, rectangle[i - 1, j - 1].rect);
+                        rectangle[i - 1, j - 1].color = Color.Red;
                     }
-                    if (count < 2 || count > 3)
+                    if (rectangle[i, j].color == Color.Black && i - 1 >= 0 && j + 1 >= 0)
                     {
-                        g.FillRectangle(whiteBrush, rectangle[i, j].rect);
-                        rectangle[i, j].color = Color.White;
+                        g.FillRectangle(redBrush, rectangle[i - 1, j + 1].rect);
+                        rectangle[i - 1, j + 1].color = Color.Red;
                     }
                 }
-            }
         }
         /// <summary>
         /// timer по клику кнопки старт/стоп
