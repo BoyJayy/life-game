@@ -18,10 +18,11 @@ namespace game
             InitializeComponent();
         }
         Graphics g;
-        const int n = 100, m = 100; const int size = 30;
+        const int n = 200, m = 200; const int size = 30;
         //public Rectangle[,] rectangle = new Rectangle[n, m];
         public Rect[,] rectangle = new Rect[n, m];
         SolidBrush blackBrush = new SolidBrush(Color.Black);
+        SolidBrush whiteBrush = new SolidBrush(Color.White);
         Pen blackPen = new Pen(Color.Black,1);
         bool mouse = false;
 
@@ -33,6 +34,11 @@ namespace game
             public Rectangle rect;
             public Color color;
             public int counter;
+            public static Rect operator ++(Rect r1) // ЗОМБИ КОД ПОКА ЧТО 
+            {
+                r1.counter++;
+                return r1;
+            }
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -81,27 +87,7 @@ namespace game
 
         private void Form1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                    if (rectangle[i, j].color == Color.Black)
-                    {
-                        //MessageBox.Show(i + " " + j);
-                        rectangle[i - 1, j - 1].counter++;
-                        rectangle[i - 1, j].counter++;
-                        rectangle[i - 1, j + 1].counter++;
-                        rectangle[i, j - 1].counter++;
-                        rectangle[i, j].counter++;
-                        rectangle[i, j + 1].counter++;
-                        rectangle[i + 1, j - 1].counter++;
-                        rectangle[i + 1, j].counter++;
-                        rectangle[i + 1, j + 1].counter++;
-                    }
-                }
-            }
         }
-
         /// <summary>
         ///  кнопка старт/стоп
         /// </summary>
@@ -119,8 +105,33 @@ namespace game
                 button1.Text = "Start";
                 timer1.Enabled = false;
             }
+            int count;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    count = 0;
+                    if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j].counter++; //i - 1 j - 1
+                    if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j].counter++; //i - 1 j
+                    if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j].counter++; //i - 1 j + 1
+                    if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j].counter++; //j - 1
+                    if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j].counter++; // j + 1
+                    if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j].counter++; //i + 1 j - 1
+                    if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j].counter++; //i + 1 j
+                    if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j].counter++; //i + 1 j + 1
+                    if (count == 3)
+                    {
+                        g.FillRectangle(blackBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.Black;
+                    }
+                    if (count < 2 || count > 3)
+                    {
+                        g.FillRectangle(whiteBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.White;
+                    }
+                }
+            }
         }
-
         /// <summary>
         /// timer по клику кнопки старт/стоп
         /// </summary>
