@@ -35,7 +35,7 @@ namespace game
             public Rectangle rect;
             public Color color;
             public int counter;
-            public static Rect operator ++(Rect r1) // ЗОМБИ КОД ПОКА ЧТО
+            public static Rect operator ++(Rect r1) //peregruz
             {
                 r1.counter++;
                 return r1;
@@ -115,7 +115,7 @@ namespace game
             //        if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j]++; //i + 1 j - 1
             //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
             //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
-            //    }
+            //    } старая проверка для пастинга
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
@@ -134,7 +134,7 @@ namespace game
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].counter == 3 || rectangle[i, j].counter == 2)
+                    if (rectangle[i, j].counter == 3)
                     {
                         //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
                         //rectangle[i, j].counter = 0;
