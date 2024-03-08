@@ -103,6 +103,24 @@ namespace game
                 button1.Text = "Start";
                 timer1.Enabled = false;
             }
+        }
+        /// <summary>
+        /// timer по клику кнопки старт/стоп
+        /// </summary>
+        /// <param name="sender">сендер</param>
+        /// <param name="e">эвент мыши(обращение к ней)</param>
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            if (button1.Text == "Start")
+            {
+                button1.Text = "Stop";
+                timer1.Enabled = true;
+            }
+            else
+            {
+                button1.Text = "Start";
+                timer1.Enabled = false;
+            }
             // ZOMBIE
             //for (int i = 0; i < n; i++) 
             //    for (int j = 0; j < m; j++)
@@ -134,7 +152,7 @@ namespace game
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].counter == 3)
+                    if (rectangle[i, j].counter == 3 && i >= 0 && j >= 0)
                     {
                         //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
                         //rectangle[i, j].counter = 0;
@@ -149,21 +167,6 @@ namespace game
                         rectangle[i, j].color = Color.White;
                     }
                 }
-        }
-        /// <summary>
-        /// timer по клику кнопки старт/стоп
-        /// </summary>
-        /// <param name="sender">сендер</param>
-        /// <param name="e">эвент мыши(обращение к ней)</param>
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                    //здесь сам агоритм появления и изменения
-                }
-            }
         }
 
         /// <summary>
