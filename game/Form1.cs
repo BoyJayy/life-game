@@ -24,7 +24,7 @@ namespace game
         SolidBrush blackBrush = new SolidBrush(Color.Black);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
         SolidBrush redBrush = new SolidBrush(Color.Red);
-        Pen blackPen = new Pen(Color.Black,1);
+        Pen blackPen = new Pen(Color.Black, 1);
         bool mouse = false;
 
         /// <summary>
@@ -103,7 +103,8 @@ namespace game
                 button1.Text = "Start";
                 timer1.Enabled = false;
             }
-            //for (int i = 0; i < n; i++)
+            // ZOMBIE
+            //for (int i = 0; i < n; i++) 
             //    for (int j = 0; j < m; j++)
             //    {
             //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
@@ -115,32 +116,37 @@ namespace game
             //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
             //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
             //    }
-            //for (int i = 0; i < n; i++)
-            //    for (int j = 0; j < m; j++)
-            //    {
-            //        if (rectangle[i, j].counter == 3)
-            //        {
-            //            g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i,j].rect.X + 10, rectangle[i, j].rect.Y + 10);
-            //            rectangle[i, j].counter = 0;
-            //        }
-            //        if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3)
-            //        {
-            //            g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
-            //            rectangle[i, j].counter = 0;
-            //        }
-            //    }
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].color == Color.Black && i - 1 >= 0 && j - 1 >= 0)
+                    if (rectangle[i, j].color == Color.Black)
                     {
-                        g.FillRectangle(redBrush, rectangle[i - 1, j - 1].rect);
-                        rectangle[i - 1, j - 1].color = Color.Red;
+                        rectangle[i - 1, j - 1]++;
+                        rectangle[i - 1, j]++;
+                        rectangle[i - 1, j + 1]++;
+                        rectangle[i, j - 1]++;
+                        rectangle[i, j + 1]++;
+                        rectangle[i + 1, j - 1]++;
+                        rectangle[i + 1, j]++;
+                        rectangle[i + 1, j + 1]++;
                     }
-                    if (rectangle[i, j].color == Color.Black && i - 1 >= 0 && j + 1 >= 0)
+                }
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                {
+                    if (rectangle[i, j].counter == 3 || rectangle[i, j].counter == 2)
                     {
-                        g.FillRectangle(redBrush, rectangle[i - 1, j + 1].rect);
-                        rectangle[i - 1, j + 1].color = Color.Red;
+                        //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
+                        //rectangle[i, j].counter = 0;
+                        g.FillRectangle(blackBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.Black;
+                    }
+                    if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3)
+                    {
+                        //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
+                        //rectangle[i, j].counter = 0;
+                        g.FillRectangle(whiteBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.White;
                     }
                 }
         }
