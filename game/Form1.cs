@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace game
 {
@@ -18,15 +11,17 @@ namespace game
             InitializeComponent();
         }
 
-        Graphics g;
-        const int n = 39, m = 23; const int size = 30;
+        private Graphics g;
+        private const int n = 39, m = 23; private const int size = 30;
+
         //public Rectangle[,] rectangle = new Rectangle[n, m];
         public Rect[,] rectangle = new Rect[n, m];
-        SolidBrush blackBrush = new SolidBrush(Color.Black);
-        SolidBrush whiteBrush = new SolidBrush(Color.White);
-        SolidBrush redBrush = new SolidBrush(Color.Red);
-        Pen blackPen = new Pen(Color.Black, 1);
-        bool mouse = false;
+
+        private SolidBrush blackBrush = new SolidBrush(Color.Black);
+        private SolidBrush whiteBrush = new SolidBrush(Color.White);
+        private SolidBrush redBrush = new SolidBrush(Color.Red);
+        private Pen blackPen = new Pen(Color.Black, 1);
+        private bool mouse = false;
 
         public struct Rect
         {
@@ -61,7 +56,6 @@ namespace game
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-
             if (mouse)
                 for (int i = 0; i < n; i++)
                     for (int j = 0; j < m; j++)
@@ -76,14 +70,16 @@ namespace game
                         }
                     }
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             //
         }
+
         private void timer1_Tick_1(object sender, EventArgs e)
         {
             // ZOMBIE
-            //for (int i = 0; i < n; i++) 
+            // for (int i = 0; i < n; i++)
             //    for (int j = 0; j < m; j++)
             //    {
             //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
@@ -100,7 +96,7 @@ namespace game
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].color == Color.Black)
+                    if (rectangle[i, j].color == Color.Black && i > 0 && j > 0 && i < n - 1 && j < m - 1)
                     {
                         rectangle[i - 1, j - 1]++;
                         rectangle[i - 1, j]++;
@@ -115,14 +111,14 @@ namespace game
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].counter == 3 && i >= 0 && j >= 0)
+                    if (rectangle[i, j].counter == 3 && i >= 0 && j >= 0 && i < n && j < m)
                     {
                         //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
                         //rectangle[i, j].counter = 0;
                         g.FillRectangle(blackBrush, rectangle[i, j].rect);
                         rectangle[i, j].color = Color.Black;
                     }
-                    if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3)
+                    if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3 && i >= 0 && j >= 0 && i < n && j < m)
                     {
                         //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
                         //rectangle[i, j].counter = 0;
@@ -145,7 +141,9 @@ namespace game
                 timer1.Enabled = false;
             }
         }
-        int counter_forOnestep = 0;
+
+        private int counter_forOnestep = 0;
+
         private void onestepButton_Click(object sender, EventArgs e)
         {
             counter_forOnestep += 1;
@@ -153,7 +151,7 @@ namespace game
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].color == Color.Black)
+                    if (rectangle[i, j].color == Color.Black && i > 0 && j > 0 && i < n - 1 && j < m - 1)
                     {
                         rectangle[i - 1, j - 1]++;
                         rectangle[i - 1, j]++;
@@ -168,14 +166,14 @@ namespace game
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
-                    if (rectangle[i, j].counter == 3 && i >= 0 && j >= 0)
+                    if (rectangle[i, j].counter == 3 && i >= 0 && j >= 0 && i < n && j < m)
                     {
                         //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
                         //rectangle[i, j].counter = 0;
                         g.FillRectangle(blackBrush, rectangle[i, j].rect);
                         rectangle[i, j].color = Color.Black;
                     }
-                    if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3)
+                    if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3 && i >= 0 && j >= 0 && i < n && j < m)
                     {
                         //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
                         //rectangle[i, j].counter = 0;
@@ -193,7 +191,6 @@ namespace game
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-
             mouse = true;
             for (int i = 0; i < n; i++)
             {
@@ -207,7 +204,6 @@ namespace game
                         g.FillRectangle(blackBrush, rectangle[i, j].rect);
                         rectangle[i, j].color = Color.Black;
                     }
-
                 }
             }
         }
