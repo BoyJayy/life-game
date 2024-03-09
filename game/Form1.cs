@@ -11,9 +11,9 @@ using System.Drawing;
 
 namespace game
 {
-    public partial class Form1 : Form
+    public partial class lifegame : Form
     {
-        public Form1()
+        public lifegame()
         {
             InitializeComponent();
         }
@@ -93,47 +93,16 @@ namespace game
         /// <param name="e">эвент мыши(обращение к ней)</param>
         private void button1_Click(object sender, EventArgs e)
         {
-            if (button1.Text == "Start")
+            if (startButton.Text == "Start")
             {
-                button1.Text = "Stop";
+                startButton.Text = "Stop";
                 timer1.Enabled = true;
             }
             else
             {
-                button1.Text = "Start";
+                startButton.Text = "Start";
                 timer1.Enabled = false;
             }
-        }
-        /// <summary>
-        /// timer по клику кнопки старт/стоп
-        /// </summary>
-        /// <param name="sender">сендер</param>
-        /// <param name="e">эвент мыши(обращение к ней)</param>
-        private void timer1_Tick_1(object sender, EventArgs e)
-        {
-            if (button1.Text == "Start")
-            {
-                button1.Text = "Stop";
-                timer1.Enabled = true;
-            }
-            else
-            {
-                button1.Text = "Start";
-                timer1.Enabled = false;
-            }
-            // ZOMBIE
-            //for (int i = 0; i < n; i++) 
-            //    for (int j = 0; j < m; j++)
-            //    {
-            //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
-            //        if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j]++; //i - 1 j
-            //        if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j]++; //i - 1 j + 1
-            //        if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; //j - 1
-            //        if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; // j + 1
-            //        if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j]++; //i + 1 j - 1
-            //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
-            //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
-            //    } старая проверка для пастинга
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
@@ -167,6 +136,28 @@ namespace game
                         rectangle[i, j].color = Color.White;
                     }
                 }
+        }
+        /// <summary>
+        /// timer по клику кнопки старт/стоп
+        /// </summary>
+        /// <param name="sender">сендер</param>
+        /// <param name="e">эвент мыши(обращение к ней)</param>
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            // ZOMBIE
+            //for (int i = 0; i < n; i++) 
+            //    for (int j = 0; j < m; j++)
+            //    {
+            //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
+            //        if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j]++; //i - 1 j
+            //        if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j]++; //i - 1 j + 1
+            //        if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; //j - 1
+            //        if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; // j + 1
+            //        if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j]++; //i + 1 j - 1
+            //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
+            //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
+            //    } старая проверка для пастинга
+          
         }
 
         /// <summary>
