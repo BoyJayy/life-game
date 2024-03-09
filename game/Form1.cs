@@ -17,8 +17,9 @@ namespace game
         {
             InitializeComponent();
         }
+
         Graphics g;
-        const int n = 200, m = 200; const int size = 30;
+        const int n = 39, m = 23; const int size = 30;
         //public Rectangle[,] rectangle = new Rectangle[n, m];
         public Rect[,] rectangle = new Rect[n, m];
         SolidBrush blackBrush = new SolidBrush(Color.Black);
@@ -27,9 +28,6 @@ namespace game
         Pen blackPen = new Pen(Color.Black, 1);
         bool mouse = false;
 
-        /// <summary>
-        /// структура поля
-        /// </summary>
         public struct Rect
         {
             public Rectangle rect;
@@ -49,7 +47,7 @@ namespace game
             {
                 for (int j = 0; j < m; j++)
                 {
-                    rectangle[i, j].rect = new Rectangle(i * size, j * size + 30, size, size);
+                    rectangle[i, j].rect = new Rectangle(i * size, j * size + 50, size, size);
                     rectangle[i, j].counter = 0;
                     g.DrawRectangle(blackPen, rectangle[i, j].rect);
                 }
@@ -82,27 +80,23 @@ namespace game
         {
             //
         }
-
-        private void Form1_Click(object sender, EventArgs e)
+        private void timer1_Tick_1(object sender, EventArgs e)
         {
-        }
-        /// <summary>
-        ///  кнопка старт/стоп
-        /// </summary>
-        /// <param name="sender">сендер</param>
-        /// <param name="e">эвент мыши(обращение к ней)</param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (startButton.Text == "Start")
-            {
-                startButton.Text = "Stop";
-                timer1.Enabled = true;
-            }
-            else
-            {
-                startButton.Text = "Start";
-                timer1.Enabled = false;
-            }
+            // ZOMBIE
+            //for (int i = 0; i < n; i++) 
+            //    for (int j = 0; j < m; j++)
+            //    {
+            //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
+            //        if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j]++; //i - 1 j
+            //        if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j]++; //i - 1 j + 1
+            //        if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; //j - 1
+            //        if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; // j + 1
+            //        if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j]++; //i + 1 j - 1
+            //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
+            //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
+            //    } старая проверка для пастинга
+            counter_forOnestep += 1;
+            onestepButton.Text = "One step " + counter_forOnestep.ToString();
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
@@ -137,34 +131,66 @@ namespace game
                     }
                 }
         }
-        /// <summary>
-        /// timer по клику кнопки старт/стоп
-        /// </summary>
-        /// <param name="sender">сендер</param>
-        /// <param name="e">эвент мыши(обращение к ней)</param>
-        private void timer1_Tick_1(object sender, EventArgs e)
+
+        private void start_Click(object sender, EventArgs e)
         {
-            // ZOMBIE
-            //for (int i = 0; i < n; i++) 
-            //    for (int j = 0; j < m; j++)
-            //    {
-            //        if (i - 1 >= 0 && j - 1 >= 0) if (rectangle[i - 1, j - 1].color == Color.Black) rectangle[i, j]++; //i - 1 j - 1
-            //        if (i - 1 >= 0) if (rectangle[i - 1, j].color == Color.Black) rectangle[i, j]++; //i - 1 j
-            //        if (i - 1 >= 0 && j + 1 > m) if (rectangle[i - 1, j + 1].color == Color.Black) rectangle[i, j]++; //i - 1 j + 1
-            //        if (j - 1 >= 0) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; //j - 1
-            //        if (j + 1 > m) if (rectangle[i, j - 1].color == Color.Black) rectangle[i, j]++; // j + 1
-            //        if (i + 1 < n && j - 1 >= 0) if (rectangle[i + 1, j - 1].color == Color.Black) rectangle[i, j]++; //i + 1 j - 1
-            //        if (i + 1 < n) if (rectangle[i + 1, j].color == Color.Black) rectangle[i, j]++; //i + 1 j
-            //        if (i + 1 < n && j + 1 > m) if (rectangle[i + 1, j + 1].color == Color.Black) rectangle[i, j]++; //i + 1 j + 1
-            //    } старая проверка для пастинга
-          
+            if (startButton.Text == "Start")
+            {
+                startButton.Text = "Stop";
+                timer1.Enabled = true;
+            }
+            else
+            {
+                startButton.Text = "Start";
+                timer1.Enabled = false;
+            }
+        }
+        int counter_forOnestep = 0;
+        private void onestepButton_Click(object sender, EventArgs e)
+        {
+            counter_forOnestep += 1;
+            onestepButton.Text = "One step " + counter_forOnestep.ToString();
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                {
+                    if (rectangle[i, j].color == Color.Black)
+                    {
+                        rectangle[i - 1, j - 1]++;
+                        rectangle[i - 1, j]++;
+                        rectangle[i - 1, j + 1]++;
+                        rectangle[i, j - 1]++;
+                        rectangle[i, j + 1]++;
+                        rectangle[i + 1, j - 1]++;
+                        rectangle[i + 1, j]++;
+                        rectangle[i + 1, j + 1]++;
+                    }
+                }
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                {
+                    if (rectangle[i, j].counter == 3 && i >= 0 && j >= 0)
+                    {
+                        //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
+                        //rectangle[i, j].counter = 0;
+                        g.FillRectangle(blackBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.Black;
+                    }
+                    if (rectangle[i, j].counter < 2 || rectangle[i, j].counter > 3)
+                    {
+                        //g.DrawString(rectangle[i, j].counter.ToString(), DefaultFont, Brushes.Green, rectangle[i, j].rect.X + 10, rectangle[i, j].rect.Y + 10);
+                        //rectangle[i, j].counter = 0;
+                        g.FillRectangle(whiteBrush, rectangle[i, j].rect);
+                        rectangle[i, j].color = Color.White;
+                    }
+                }
         }
 
-        /// <summary>
-        /// отжатие мыши
-        /// </summary>
-        /// <param name="sender">сендер</param>
-        /// <param name="e">эвент мыши(обращение к ней)</param>
+        private void timerDelay_slider_Scroll(object sender, EventArgs e)
+        {
+            timerDelay_sliderValue.Text = timerDelay_slider.Value.ToString() + " ms";
+            timer1.Interval = timerDelay_slider.Value + 1;
+        }
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
 
