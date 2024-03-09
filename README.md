@@ -13,3 +13,8 @@ Game Rules:
     Generations alternate synchronously according to simple rules:
     in an empty (dead) cell with exactly three living cells next to it, life is born;
     if a living cell has two or three living neighbors, this cell continues to live; otherwise (if there are less than two or more than three neighbors) the cell dies ("from loneliness" or "from overcrowding").
+
+
+
+
+the project was made for practicing skills on .NET
