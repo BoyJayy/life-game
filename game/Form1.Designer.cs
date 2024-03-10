@@ -70,7 +70,7 @@ namespace game
             // 
             // timerDelay_slider
             // 
-            this.timerDelay_slider.Location = new System.Drawing.Point(291, 1);
+            this.timerDelay_slider.Location = new System.Drawing.Point(292, 1);
             this.timerDelay_slider.Maximum = 10000;
             this.timerDelay_slider.Name = "timerDelay_slider";
             this.timerDelay_slider.Size = new System.Drawing.Size(230, 45);
